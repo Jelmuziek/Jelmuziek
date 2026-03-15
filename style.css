@@ -1,0 +1,90 @@
+/* ALGEMEEN */
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f7ff;
+    color:#333;
+    }
+    
+/* NAVBAR */
+    .navbar{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:15px 20px;
+        background:white;
+        border-bottom:4px solid #ffd84d;
+    }
+    
+    .logo{
+        font-weight:bold;
+        font-size:20px;
+    }
+    
+    .navlinks a{
+        margin-left:15px;
+        text-decoration:none;
+        color:#333;
+        font-weight:bold;
+    }
+    
+/* HEADER */
+    .hero{
+    text-align:center;
+    padding:40px;
+    }
+    
+/* SETLIST */
+    .setlist{
+        max-width:500px;
+        margin:auto;
+        padding:20px;
+    }
+    
+    .song{
+        display:block;
+        background:white;
+        padding:16px;
+        margin-bottom:12px;
+        border-radius:10px;
+        border-left:6px solid #ffd84d;
+        text-decoration:none;
+        color:#333;
+        font-size:18px;
+        box-shadow:0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        background: #ffd84d;   /* geel accent */
+        color: #333;
+        font-weight: bold;
+        margin-top: 40px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    
+/* PAGINA */
+    .pagina{
+        max-width:600px;
+        margin:auto;
+        padding:30px;
+    }
+    
+/* SONG PAGINA */
+    .songpagina{
+        text-align:center;
+        padding:40px;
+    }
+    
+    .youtube{
+        display:inline-block;
+        margin-top:20px;
+        background:#d50000;
+        padding:12px 20px;
+        border-radius:10px;
+        text-decoration:none;
+        color:rgb(255, 255, 255);
+        font-weight:bold;
+    }
