@@ -1,101 +1,152 @@
 /* ALGEMEEN */
+
 body{
     margin:0;
     font-family:Arial, sans-serif;
     background:#f5f7ff;
     color:#333;
-}
-
-html{
-    scroll-padding-top:80px;
-}
+    }
     
-/* NAVBAR */
+    html{
+    scroll-padding-top:80px;
+    }
+    
+    
+    /* NAVBAR */
+    
     .navbar{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        padding:15px 20px;
-        background:white;
-        border-bottom:4px solid #ffd84d;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:white;
+    border-bottom:4px solid rgb(129,1,98);
+    position:relative;
     }
     
     .logo{
-        font-weight:bold;
-        font-size:20px;
+    font-weight:bold;
+    font-size:20px;
+    transition:transform 0.2s;
+    }
+    
+    .logo:hover{
+    transform:scale(1.05);
+    }
+    
+    
+    /* NAV LOGO (PLAATJE RECHTS) */
+    
+    .brand{
+        display:flex;
+        align-items:center;
+        gap:5px; /* precies de ruimte die je wil */
+    }
+
+    .nav-logo img{
+    height:35px;
+    width:auto;
+    margin-left:15px;
+    margin-right:2px;
+    }
+    
+    
+    /* NAV LINKS */
+    
+    .navlinks{
+    display:flex;
+    gap:15px;
     }
     
     .navlinks a{
-        margin-left:15px;
-        text-decoration:none;
-        color:#333;
-        font-weight:bold;
+    text-decoration:none;
+    color:#333;
+    font-weight:bold;
+    display:inline-block;
+    transform-origin:left center;
+    transition:transform 0.2s,color 0.2s;
     }
-
     
-/* HEADER */
+    .navlinks a:hover{
+    transform:scale(1.1);
+    color:rgb(129,1,98);
+    }
+    
+    
+    /* HEADER */
+    
     .hero{
     text-align:center;
     padding:40px;
     }
     
-/* SETLIST */
+    
+    /* SETLIST */
+    
     .setlist{
-        max-width:500px;
-        margin:auto;
-        padding:20px;
+    max-width:500px;
+    margin:auto;
+    padding:20px;
     }
     
     .song{
-        display:block;
-        background:white;
-        padding:16px;
-        margin-bottom:12px;
-        border-radius:10px;
-        border-left:6px solid #ffd84d;
-        text-decoration:none;
-        color:#333;
-        font-size:18px;
-        box-shadow:0 3px 6px rgba(0,0,0,0.1);
-    }
-
-    footer {
-        text-align: center;
-        padding: 20px;
-        background: #ffd84d;   /* geel accent */
-        color: #333;
-        font-weight: bold;
-        margin-top: 40px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+    display:block;
+    background:white;
+    padding:16px;
+    margin-bottom:12px;
+    border-radius:10px;
+    border-left:6px solid rgb(129,1,98);
+    text-decoration:none;
+    color:#333;
+    font-size:18px;
+    box-shadow:0 3px 6px rgba(0,0,0,0.1);
     }
     
-/* PAGINA */
+    
+    /* FOOTER */
+    
+    footer{
+    text-align:center;
+    padding:20px;
+    background:rgb(129,1,98);
+    color:white;
+    font-weight:bold;
+    margin-top:40px;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    }
+    
+    
+    /* PAGINA */
+    
     .pagina{
-        max-width:600px;
-        margin:auto;
-        padding:30px;
+    max-width:600px;
+    margin:auto;
+    padding:30px;
     }
     
-/* SONG PAGINA */
+    
+    /* SONG PAGINA */
+    
     .songpagina{
-        text-align:center;
-        padding:40px;
+    text-align:center;
+    padding:40px;
     }
     
     .youtube{
-        display:inline-block;
-        margin-top:20px;
-        background:#d50000;
-        padding:12px 20px;
-        border-radius:10px;
-        text-decoration:none;
-        color:rgb(255, 255, 255);
-        font-weight:bold;
+    display:inline-block;
+    margin-top:20px;
+    background:rgb(254, 0, 0);
+    padding:12px 20px;
+    border-radius:10px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
     }
-
-/* HAMBURGER */
-
+    
+    
+    /* HAMBURGER */
+    
     .hamburger{
     display:none;
     flex-direction:column;
@@ -110,7 +161,8 @@ html{
     display:block;
     }
     
-/* MOBIEL MENU */
+    
+    /* MOBIEL MENU */
     
     @media (max-width:768px){
     
@@ -126,11 +178,22 @@ html{
     left:0;
     width:100%;
     background:white;
-    border-bottom:4px solid #ffd84d;
+    border-bottom:4px solid rgb(129,1,98);
+    }
+    
+    .navlinks a{
+    padding:15px;
+    border-top:1px solid rgba(129,1,98,0.2);
     }
     
     .navlinks.active{
     display:flex;
+    }
+    
+    /* logo iets kleiner op mobiel */
+    
+    .nav-logo img{
+    height:28px;
     }
     
     }
