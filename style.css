@@ -1,237 +1,261 @@
-/* ALGEMEEN */
+/* ============================= */
+/* ALGEMENE STIJLEN */
+/* ============================= */
 
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#f5f7ff;
-    color:#333;
-    }
-    
-    html{
-    scroll-padding-top:80px;
-    }
-    
-    
-    /* NAVBAR */
-    
-    .navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:15px 20px;
-    background:white;
-    border-bottom:4px solid rgb(129,1,98);
-    position:relative;
-    }
-    
-    .logo{
-    font-weight:bold;
-    font-size:20px;
-    transition:transform 0.2s;
-    }
-    
-    .logo:hover{
-    transform:scale(1.05);
-    }
-    
-    
-    /* NAV LOGO (PLAATJE RECHTS) */
-    
-    .brand{
-        display:flex;
-        align-items:center;
-        gap:5px; /* precies de ruimte die je wil */
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7ff;
+    color: #333;
+}
 
-    .nav-logo img{
-    height:35px;
-    width:auto;
-    margin-left:15px;
-    margin-right:2px;
-    }
-    
-    
-    /* NAV LINKS */
-    
-    .navlinks{
-    display:flex;
-    gap:15px;
-    }
-    
-    .navlinks a{
-    text-decoration:none;
-    color:#333;
-    font-weight:bold;
-    display:inline-block;
-    transform-origin:left center;
-    transition:transform 0.2s,color 0.2s;
-    }
-    
-    .navlinks a:hover{
-    transform:scale(1.1);
-    color:rgb(129,1,98);
-    }
-    
-    
-    /* HEADER */
-    
-    .hero{
-    text-align:center;
-    padding:40px;
-    }
-    
-    
-    /* SETLIST */
-    
-    .setlist{
-    max-width:500px;
-    margin:auto;
-    padding:20px;
-    }
-    
-    .song{
-    display:block;
-    background:white;
-    padding:16px;
-    margin-bottom:12px;
-    border-radius:10px;
-    border-left:6px solid rgb(129,1,98);
-    text-decoration:none;
-    color:#333;
-    font-size:18px;
-    box-shadow:0 3px 6px rgba(0,0,0,0.1);
-    }
-    
-    
-    /* FOOTER */
-    
-    footer{
-    text-align:center;
-    padding:20px;
-    background:rgb(129,1,98);
-    color:white;
-    font-weight:bold;
-    margin-top:40px;
-    border-top-left-radius:10px;
-    border-top-right-radius:10px;
-    }
-    
-    
-    /* PAGINA */
-    
-    .pagina{
-    max-width:600px;
-    margin:auto;
-    padding:30px;
-    }
-    
- 
-    /* SONG PAGINA */
-    
-    .songpagina{
-    text-align:center;
-    padding:40px;
-    }
+html {
+    scroll-padding-top: 80px;
+}
 
-    .song::before{
-        content:"♫ ";
-        color:rgb(129,1,98);
-        font-weight:bold;
-    }
-    
-    .youtube{
-    display:inline-block;
-    margin-top:20px;
-    background:rgb(254, 0, 0);
-    padding:12px 20px;
-    border-radius:10px;
-    text-decoration:none;
-    color:white;
-    font-weight:bold;
-    }
-    
-    /* MUZIEK NOOTJES OVERAL */
+/* ============================= */
+/* NAVBAR */
+/* ============================= */
 
-.music-background{
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: white;
+    border-bottom: 4px solid rgb(129,1,98);
+    position: relative;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 20px;
+    transition: transform 0.2s;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* NAV LOGO (PLAATJE RECHTS) */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-logo img {
+    height: 35px;
+    width: auto;
+    margin-left: 15px;
+    margin-right: 2px;
+}
+
+/* NAV LINKS */
+.navlinks {
+    display: flex;
+    gap: 15px;
+}
+
+.navlinks a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: inline-block;
+    transform-origin: left center;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.navlinks a:hover {
+    transform: scale(1.1);
+    color: rgb(129,1,98);
+}
+
+.scrollbar{
     position:fixed;
     top:0;
     left:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-    z-index:-1;
+    height:4px;
+    background:rgb(129,1,98);
+    width:0%;
+    z-index:1000;
+}
+
+/* ============================= */
+/* HEADER / HERO */
+/* ============================= */
+
+.hero {
+    text-align: center;
+    padding: 40px;
+}
+
+/* ============================= */
+/* SETLIST EN SONGS */
+/* ============================= */
+
+.setlist {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+}
+
+.song {
+    display: block;
+    background: white;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border-left: 6px solid rgb(129,1,98);
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.song::before {
+    content: "♫ ";
+    color: rgb(129,1,98);
+    font-weight: bold;
+}
+
+/* ============================= */
+/* PAGINA & SONG PAGINA */
+/* ============================= */
+
+.pagina {
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+}
+
+.songpagina {
+    text-align: center;
+    padding: 40px;
+}
+
+/* ============================= */
+/* YOUTUBE KNOP */
+/* ============================= */
+
+.youtube {
+    display: inline-block;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    padding: 14px 26px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    transition: all 0.25s ease;
+}
+
+.youtube:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    background: linear-gradient(135deg, #ff1a1a, #b30000);
+}
+
+.youtube:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+/* ============================= */
+/* MUZIEK NOOTJES ACHTERGROND */
+/* ============================= */
+
+.music-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.music-background span {
+    position: absolute;
+    font-size: 50px;
+    color: rgba(129,1,98,0.08);
+}
+
+/* RANDOM POSITIES */
+.music-background span:nth-child(1) {top:10%; left:5%;}
+.music-background span:nth-child(2) {top:25%; left:80%;}
+.music-background span:nth-child(3) {top:40%; left:20%;}
+.music-background span:nth-child(4) {top:70%; left:10%;}
+.music-background span:nth-child(5) {top:85%; left:75%;}
+.music-background span:nth-child(6) {top:55%; left:60%;}
+.music-background span:nth-child(7) {top:15%; left:50%;}
+.music-background span:nth-child(8) {top:35%; left:90%;}
+.music-background span:nth-child(9) {top:60%; left:35%;}
+.music-background span:nth-child(10){top:80%; left:45%;}
+.music-background span:nth-child(11){top:50%; left:5%;}
+.music-background span:nth-child(12){top:5%; left:70%;}
+
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgb(129,1,98);
+    color: white;
+    font-weight: bold;
+    margin-top: 40px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* ============================= */
+/* HAMBURGER / MOBIEL MENU */
+/* ============================= */
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    height: 3px;
+    width: 25px;
+    background: #333;
+    margin: 4px 0;
+    display: block;
+}
+
+@media (max-width:768px) {
+    .hamburger {
+        display: flex;
     }
-    
-    .music-background span{
-    position:absolute;
-    font-size:50px;
-    color:rgba(129,1,98,0.08);
+
+    .navlinks {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        border-bottom: 4px solid rgb(129,1,98);
     }
-    
-    /* random posities */
-    
-    .music-background span:nth-child(1){top:10%; left:5%;}
-    .music-background span:nth-child(2){top:25%; left:80%;}
-    .music-background span:nth-child(3){top:40%; left:20%;}
-    .music-background span:nth-child(4){top:70%; left:10%;}
-    .music-background span:nth-child(5){top:85%; left:75%;}
-    .music-background span:nth-child(6){top:55%; left:60%;}
-    .music-background span:nth-child(7){top:15%; left:50%;}
-    .music-background span:nth-child(8){top:35%; left:90%;}
-    .music-background span:nth-child(9){top:60%; left:35%;}
-    .music-background span:nth-child(10){top:80%; left:45%;}
-    .music-background span:nth-child(11){top:50%; left:5%;}
-    .music-background span:nth-child(12){top:5%; left:70%;}
-    
-    /* HAMBURGER */
-    
-    .hamburger{
-    display:none;
-    flex-direction:column;
-    cursor:pointer;
+
+    .navlinks a {
+        padding: 15px;
+        border-top: 1px solid rgba(129,1,98,0.2);
     }
-    
-    .hamburger span{
-    height:3px;
-    width:25px;
-    background:#333;
-    margin:4px 0;
-    display:block;
+
+    .navlinks.active {
+        display: flex;
     }
-    
-   
-    /* MOBIEL MENU */
-    
-    @media (max-width:768px){
-    
-    .hamburger{
-    display:flex;
+
+    .nav-logo img {
+        height: 28px;
     }
-    
-    .navlinks{
-    display:none;
-    flex-direction:column;
-    position:absolute;
-    top:70px;
-    left:0;
-    width:100%;
-    background:white;
-    border-bottom:4px solid rgb(129,1,98);
-    }
-    
-    .navlinks a{
-    padding:15px;
-    border-top:1px solid rgba(129,1,98,0.2);
-    }
-    
-    .navlinks.active{
-    display:flex;
-    }
-    
-    /* logo iets kleiner op mobiel */
-    
-    .nav-logo img{
-    height:28px;
-    }
-    
-    }
+}
