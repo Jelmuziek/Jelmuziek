@@ -4,7 +4,11 @@ body{
     font-family:Arial, sans-serif;
     background:#f5f7ff;
     color:#333;
-    }
+}
+
+html{
+    scroll-padding-top:80px;
+}
     
 /* NAVBAR */
     .navbar{
@@ -26,6 +30,11 @@ body{
         text-decoration:none;
         color:#333;
         font-weight:bold;
+    }
+
+    .navlinks{
+        display:flex;
+        flex-wrap:wrap;
     }
     
 /* HEADER */
