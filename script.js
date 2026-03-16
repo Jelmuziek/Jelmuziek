@@ -1,7 +1,15 @@
+// =============================
+// Hamburger menu
+// =============================
+
 function toggleMenu(){
     const menu = document.getElementById("navlinks");
     menu.classList.toggle("active");
 }
+
+// =============================
+// Scroll bar
+// =============================
 
 window.onscroll = function() {
     let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
