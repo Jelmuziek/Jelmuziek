@@ -37,6 +37,8 @@ html {
     transform: scale(1.05);
 }
 
+/* NAV LOGO (PLAATJE RECHTS) */
+
 .brand {
     display: flex;
     align-items: center;
@@ -45,7 +47,12 @@ html {
 
 .nav-logo img {
     height: 35px;
+    width: auto;
+    margin-left: 15px;
+    margin-right: 2px;
 }
+
+/* NAV LINKS */
 
 .navlinks {
     display: flex;
@@ -56,17 +63,15 @@ html {
     text-decoration: none;
     color: #333;
     font-weight: bold;
-    transition: transform 0.2s;
+    display: inline-block;
+    transform-origin: left center;
+    transition: transform 0.2s, color 0.2s;
 }
 
 .navlinks a:hover {
     transform: scale(1.1);
     color: rgb(129,1,98);
 }
-
-/* ============================= */
-/* SCROLLBAR */
-/* ============================= */
 
 .scrollbar{
     position:fixed;
@@ -79,48 +84,75 @@ html {
 }
 
 /* ============================= */
+/* HEADER / HERO */
+/* ============================= */
+
+.hero {
+    text-align: center;
+    padding: 40px;
+}
+
+/* ============================= */
+/* SETLIST EN SONGS */
+/* ============================= */
+
+.setlist {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+}
+
+.song {
+    display: block;
+    background: white;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border-left: 6px solid rgb(129,1,98);
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.song::before {
+    content: "♫ ";
+    color: rgb(129,1,98);
+    font-weight: bold;
+}
+
+/* ============================= */
 /* PAGINA */
 /* ============================= */
 
 .pagina {
-    max-width: 700px;
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+}
+
+/* ============================= */
+/* SONG PAGINA */
+/* ============================= */
+
+.songpagina {
+    max-width: 600px;
     margin: auto;
     padding: 40px;
+}
+
+/* Titel en eerste tekst centreren */
+
+.songpagina h1,
+.songpagina p:first-of-type {
     text-align: center;
 }
 
-/* ============================= */
-/* MUZIEK ACHTERGROND */
-/* ============================= */
+/* Tweede tekst normaal links */
 
-.music-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
+.songpagina p:nth-of-type(2) {
+    text-align: left;
 }
-
-.music-background span {
-    position: absolute;
-    font-size: 50px;
-    color: rgba(129,1,98,0.08);
-}
-
-.music-background span:nth-child(1) {top:10%; left:5%;}
-.music-background span:nth-child(2) {top:25%; left:80%;}
-.music-background span:nth-child(3) {top:40%; left:20%;}
-.music-background span:nth-child(4) {top:70%; left:10%;}
-.music-background span:nth-child(5) {top:85%; left:75%;}
-.music-background span:nth-child(6) {top:55%; left:60%;}
-.music-background span:nth-child(7) {top:15%; left:50%;}
-.music-background span:nth-child(8) {top:35%; left:90%;}
-.music-background span:nth-child(9) {top:60%; left:35%;}
-.music-background span:nth-child(10){top:80%; left:45%;}
-.music-background span:nth-child(11){top:50%; left:5%;}
-.music-background span:nth-child(12){top:5%; left:70%;}
 
 /* ============================= */
 /* FOTO GALLERY */
@@ -185,6 +217,71 @@ html {
     color: white;
     cursor: pointer;
 }
+
+/* ============================= */
+/* YOUTUBE KNOP */
+/* ============================= */
+
+.youtube {
+    display: block;
+    width: fit-content;
+    margin: 30px auto; /* dit centreert de knop */
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    padding: 14px 26px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    transition: all 0.25s ease;
+}
+
+.youtube:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    background: linear-gradient(135deg, #ff1a1a, #b30000);
+}
+
+.youtube:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+/* ============================= */
+/* MUZIEK NOOTJES ACHTERGROND */
+/* ============================= */
+
+.music-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.music-background span {
+    position: absolute;
+    font-size: 50px;
+    color: rgba(129,1,98,0.08);
+}
+
+/* RANDOM POSITIES */
+
+.music-background span:nth-child(1) {top:10%; left:5%;}
+.music-background span:nth-child(2) {top:25%; left:80%;}
+.music-background span:nth-child(3) {top:40%; left:20%;}
+.music-background span:nth-child(4) {top:70%; left:10%;}
+.music-background span:nth-child(5) {top:85%; left:75%;}
+.music-background span:nth-child(6) {top:55%; left:60%;}
+.music-background span:nth-child(7) {top:15%; left:50%;}
+.music-background span:nth-child(8) {top:35%; left:90%;}
+.music-background span:nth-child(9) {top:60%; left:35%;}
+.music-background span:nth-child(10){top:80%; left:45%;}
+.music-background span:nth-child(11){top:50%; left:5%;}
+.music-background span:nth-child(12){top:5%; left:70%;}
 
 /* ============================= */
 /* FOOTER */
