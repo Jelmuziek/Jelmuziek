@@ -234,6 +234,10 @@ footer {
     border-top-right-radius: 10px;
 }
 
+footer p::before {
+    content: "Jel Openstage 2e editie • Jan van Egmond Lyceum";
+}
+
 /* ============================= */
 /* HAMBURGER / MOBIEL MENU */
 /* ============================= */
