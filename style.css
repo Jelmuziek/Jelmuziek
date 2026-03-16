@@ -239,6 +239,29 @@ footer p::before {
 }
 
 /* ============================= */
+/* DISCO MODE */
+/* ============================= */
+
+@keyframes discoColors {
+    0% { background: #ff0055; }
+    20% { background: #00e1ff; }
+    40% { background: #00ff88; }
+    60% { background: #ffea00; }
+    80% { background: #ff6600; }
+    100% { background: #ff0055; }
+}
+
+body.disco-mode {
+    animation: discoColors 2s infinite;
+}
+
+body.disco-mode .navbar,
+body.disco-mode footer,
+body.disco-mode .song {
+    animation: discoColors 2s infinite;
+}
+
+/* ============================= */
 /* HAMBURGER / MOBIEL MENU */
 /* ============================= */
 
