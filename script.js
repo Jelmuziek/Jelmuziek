@@ -1,7 +1,7 @@
 function toggleMenu(){
     const menu = document.getElementById("navlinks");
     menu.classList.toggle("active");
-    }
+}
 
 window.onscroll = function() {
     let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -21,6 +21,7 @@ const logo = document.querySelector(".brand");
 const notes = document.querySelectorAll(".music-background span");
 
 logo.addEventListener("click", () => {
+
     clickCount++;
 
     if(clickCount >= 5){
@@ -41,4 +42,21 @@ logo.addEventListener("click", () => {
 
         clickCount = 0;
     }
+
 });
+
+// =============================
+// FOTO POPUP
+// =============================
+
+function openImage(img){
+    const popup = document.getElementById("popup");
+    const popupImg = document.getElementById("popup-img");
+
+    popup.style.display = "flex";
+    popupImg.src = img.src;
+}
+
+function closeImage(){
+    document.getElementById("popup").style.display = "none";
+}
