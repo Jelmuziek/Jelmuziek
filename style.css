@@ -132,6 +132,17 @@ html {
 }
 
 /* ============================= */
+/* EVENT PAGINA */
+/* ============================= */
+
+.eventpagina {
+    max-width: 600px;
+    margin: auto;
+    color:#ababab;
+    font-style: italic;
+}
+
+/* ============================= */
 /* SONG PAGINA */
 /* ============================= */
 
