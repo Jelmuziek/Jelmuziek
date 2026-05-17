@@ -1164,3 +1164,24 @@ footer p::before {
 }
 
 .beheer-status strong { color: var(--paars); }
+
+/* ============================= */
+/* SKELETON LOADERS              */
+/* ============================= */
+
+@keyframes shimmer {
+    0%   { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+}
+
+.song-skeleton {
+    height: 58px;
+    background: linear-gradient(90deg, #f0e8f0 25%, #f8f0f8 50%, #f0e8f0 75%);
+    background-size: 400px 100%;
+    animation: shimmer 1.4s ease-in-out infinite, fadeInLeft 0s !important;
+    opacity: 1 !important;
+    pointer-events: none;
+    border-left-color: #e0d0e0 !important;
+}
+
+.song-skeleton::after { display: none; }

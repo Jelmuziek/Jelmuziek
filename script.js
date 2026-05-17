@@ -2,7 +2,7 @@
 // Scrollbar indicator
 // =============================
 window.addEventListener('scroll', () => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollTop    = document.documentElement.scrollTop || document.body.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
     const bar = document.querySelector('.scrollbar');
@@ -28,7 +28,6 @@ document.querySelectorAll('.navlinks a').forEach(a => {
     });
 });
 
-// Markeer actieve nav link
 (function() {
     const current = location.pathname.split('/').pop();
     document.querySelectorAll('.navlinks a').forEach(a => {
@@ -66,71 +65,147 @@ document.getElementById('popup')?.addEventListener('click', function(e) {
 });
 
 // =============================
-// Scroll-animaties
+// SONG LINK MATCHER
+// Probeert voor elk nummer de juiste HTML-pagina te vinden
 // =============================
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateX(0)';
+
+// Alle bekende song-bestanden (bestaande nummers)
+const SONG_BESTANDEN = {
+    'american idiot':              'songs/American idiot.html',
+    'creep':                       'songs/Creep.html',
+    'sailor song':                 'songs/Sailor song.html',
+    'lie to me':                   'songs/Lie to me.html',
+    'clair de lune':               'songs/Clair de lune.html',
+    'from the start':              'songs/From the start.html',
+    'desperado':                   'songs/Desperado.html',
+    'iloveitiloveitiloveit':       'songs/iloveitiloveitiloveit.html',
+    '505':                         'songs/505.html',
+    'remedy':                      'songs/Remedy.html',
+    'van gogh':                    'songs/Van Gogh.html',
+    'one way or another':          'songs/One way or another.html',
+    "sweet child o' mine":         "songs/Sweet Child O' Mine.html",
+    'sweet child o mine':          "songs/Sweet Child O' Mine.html",
+    'nothing else matters':        'songs/Nothing else Matters.html',
+    'price of smokes & cockroaches': 'songs/Price of smokes of Cockroaches.html',
+    'price of smokes of cockroaches': 'songs/Price of smokes of Cockroaches.html',
+    'price of smokes and cockroaches': 'songs/Price of smokes of Cockroaches.html',
+    'feuer frei':                  'songs/Feuer Frei.html',
+    'always':                      'songs/Always.html',
+    'tequila':                     'songs/Tequilla.html',
+    'tequilla':                    'songs/Tequilla.html',
+};
+
+function vindSongUrl(naam) {
+    const key = naam.toLowerCase().trim();
+    // Exacte match
+    if (SONG_BESTANDEN[key]) return SONG_BESTANDEN[key];
+    // Gedeeltelijke match
+    for (const [k, v] of Object.entries(SONG_BESTANDEN)) {
+        if (key.includes(k) || k.includes(key)) return v;
+    }
+    // Geen match: geen link (nieuw nummer zonder pagina)
+    return null;
+}
+
+// =============================
+// SETLIST DYNAMISCH OPBOUWEN
+// =============================
+function bouwSetlist(nummers, huidig, afgespeeld) {
+    const container = document.getElementById('setlist-container');
+    if (!container) return;
+
+    container.innerHTML = nummers.map((song, i) => {
+        const nr       = i + 1;
+        const url      = vindSongUrl(song.naam);
+        const isActief = nr === huidig;
+        const isKlaar  = Array.isArray(afgespeeld) && afgespeeld.includes(nr);
+        const klassen  = `song${isActief ? ' speelt-nu' : ''}${isKlaar ? ' afgespeeld' : ''}`;
+
+        const inhoud = `
+            <span class="song-nummer">${nr}</span>
+            ${song.naam}
+            <span class="song-icon">♫</span>
+        `;
+
+        // Klikbaar als er een pagina bestaat, anders gewoon een div
+        if (url) {
+            return `<a class="${klassen}" href="${url}" style="animation-delay:${i * 0.05}s">${inhoud}</a>`;
+        } else {
+            return `<div class="${klassen}" style="animation-delay:${i * 0.05}s;cursor:default">${inhoud}</div>`;
         }
-    });
-}, { threshold: 0.1 });
-document.querySelectorAll('.song').forEach(s => observer.observe(s));
+    }).join('');
+
+    // Scroll-animaties opnieuw koppelen
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateX(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+    container.querySelectorAll('.song:not(.song-skeleton)').forEach(s => observer.observe(s));
+}
 
 // =============================
-// NU SPEELT – Firebase live
+// NU SPEELT BANNER UPDATEN
 // =============================
-const FB_URL = 'https://openstage-597a9-default-rtdb.europe-west1.firebasedatabase.app/show.json';
-
-function updateSetlistUI(state) {
+function updateBanner(state) {
     const banner = document.getElementById('nu-speelt-banner');
     const naamEl = document.getElementById('nu-speelt-naam');
-    const songs  = document.querySelectorAll('.song');
-    if (!songs.length || !state) return;
+    if (!banner || !naamEl) return;
 
-    // Haal live namen op uit Firebase als die er zijn
-    const namen = (state.nummers || []).map(n => n.naam);
-
-    songs.forEach((el, i) => {
-        const nr = i + 1;
-        el.classList.toggle('speelt-nu',  nr === state.huidig);
-        el.classList.toggle('afgespeeld', Array.isArray(state.afgespeeld) && state.afgespeeld.includes(nr));
-
-        // Update songnaam in de DOM als die veranderd is via beheer
-        if (namen[i]) {
-            const tekstNode = [...el.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
-            if (tekstNode) tekstNode.textContent = namen[i];
-        }
-    });
-
-    if (banner && naamEl) {
-        if (state.huidig) {
-            const naam = namen[state.huidig - 1] || '';
-            naamEl.textContent = naam;
-            banner.classList.add('zichtbaar');
-            const actief = document.querySelector('.song.speelt-nu');
-            if (actief) actief.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-            banner.classList.remove('zichtbaar');
-        }
+    const nummers = state.nummers || [];
+    if (state.huidig && nummers[state.huidig - 1]) {
+        naamEl.textContent = nummers[state.huidig - 1].naam;
+        banner.classList.add('zichtbaar');
+        const actief = document.querySelector('.song.speelt-nu');
+        if (actief) actief.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+        banner.classList.remove('zichtbaar');
     }
 }
 
-if (document.getElementById('nu-speelt-banner')) {
-    // Firebase SSE voor instant updates
-    const evtSource = new EventSource(FB_URL.replace('.json', '.json?accept=text/event-stream'));
-    evtSource.addEventListener('put', e => {
-        try { updateSetlistUI(JSON.parse(e.data).data); } catch {}
-    });
-    evtSource.addEventListener('patch', () => {
-        fetch(FB_URL).then(r => r.json()).then(updateSetlistUI).catch(() => {});
-    });
-    // Fallback poll
+// =============================
+// FIREBASE – LIVE UPDATES
+// =============================
+const FB_URL = 'https://openstage-597a9-default-rtdb.europe-west1.firebasedatabase.app/show.json';
+
+let huidigeState = null;
+
+function verwerkState(state) {
+    if (!state || !Array.isArray(state.nummers)) return;
+    huidigeState = state;
+    bouwSetlist(state.nummers, state.huidig, state.afgespeeld || []);
+    updateBanner(state);
+}
+
+if (document.getElementById('setlist-container') || document.getElementById('nu-speelt-banner')) {
+    // Direct laden
+    fetch(FB_URL)
+        .then(r => r.json())
+        .then(verwerkState)
+        .catch(() => {
+            // Fallback: verberg skeletons als Firebase niet bereikbaar is
+            const container = document.getElementById('setlist-container');
+            if (container) container.innerHTML = '<p style="text-align:center;color:#aaa;padding:20px">Setlist tijdelijk niet beschikbaar</p>';
+        });
+
+    // Firebase SSE voor instant live updates
+    try {
+        const sse = new EventSource(FB_URL.replace('.json', '.json?accept=text/event-stream'));
+        sse.addEventListener('put', e => {
+            try { verwerkState(JSON.parse(e.data).data); } catch {}
+        });
+        sse.addEventListener('patch', () => {
+            fetch(FB_URL).then(r => r.json()).then(verwerkState).catch(() => {});
+        });
+    } catch {}
+
+    // Fallback poll elke 10 sec
     setInterval(() => {
-        fetch(FB_URL).then(r => r.json()).then(updateSetlistUI).catch(() => {});
+        fetch(FB_URL).then(r => r.json()).then(verwerkState).catch(() => {});
     }, 10000);
-    fetch(FB_URL).then(r => r.json()).then(updateSetlistUI).catch(() => {});
 }
 
 // =============================
