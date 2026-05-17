@@ -65,45 +65,14 @@ document.getElementById('popup')?.addEventListener('click', function(e) {
 });
 
 // =============================
-// SONG LINK MATCHER
-// Probeert voor elk nummer de juiste HTML-pagina te vinden
+// SONG LINK – slot-gebaseerd
+// Elk nummer op positie i linkt naar songs/song-(i+1).html
+// Werkt ongeacht naam, altijd max 30 slots
 // =============================
+const MAX_SLOTS = 30;
 
-// Alle bekende song-bestanden (bestaande nummers)
-const SONG_BESTANDEN = {
-    'american idiot':              'songs/American idiot.html',
-    'creep':                       'songs/Creep.html',
-    'sailor song':                 'songs/Sailor song.html',
-    'lie to me':                   'songs/Lie to me.html',
-    'clair de lune':               'songs/Clair de lune.html',
-    'from the start':              'songs/From the start.html',
-    'desperado':                   'songs/Desperado.html',
-    'iloveitiloveitiloveit':       'songs/iloveitiloveitiloveit.html',
-    '505':                         'songs/505.html',
-    'remedy':                      'songs/Remedy.html',
-    'van gogh':                    'songs/Van Gogh.html',
-    'one way or another':          'songs/One way or another.html',
-    "sweet child o' mine":         "songs/Sweet Child O' Mine.html",
-    'sweet child o mine':          "songs/Sweet Child O' Mine.html",
-    'nothing else matters':        'songs/Nothing else Matters.html',
-    'price of smokes & cockroaches': 'songs/Price of smokes of Cockroaches.html',
-    'price of smokes of cockroaches': 'songs/Price of smokes of Cockroaches.html',
-    'price of smokes and cockroaches': 'songs/Price of smokes of Cockroaches.html',
-    'feuer frei':                  'songs/Feuer Frei.html',
-    'always':                      'songs/Always.html',
-    'tequila':                     'songs/Tequilla.html',
-    'tequilla':                    'songs/Tequilla.html',
-};
-
-function vindSongUrl(naam) {
-    const key = naam.toLowerCase().trim();
-    // Exacte match
-    if (SONG_BESTANDEN[key]) return SONG_BESTANDEN[key];
-    // Gedeeltelijke match
-    for (const [k, v] of Object.entries(SONG_BESTANDEN)) {
-        if (key.includes(k) || k.includes(key)) return v;
-    }
-    // Geen match: geen link (nieuw nummer zonder pagina)
+function vindSongUrl(slotNr) {
+    if (slotNr >= 1 && slotNr <= MAX_SLOTS) return `songs/song-${slotNr}.html`;
     return null;
 }
 
@@ -116,7 +85,7 @@ function bouwSetlist(nummers, huidig, afgespeeld) {
 
     container.innerHTML = nummers.map((song, i) => {
         const nr       = i + 1;
-        const url      = vindSongUrl(song.naam);
+        const url      = vindSongUrl(nr);   // slot-gebaseerd: positie = url
         const isActief = nr === huidig;
         const isKlaar  = Array.isArray(afgespeeld) && afgespeeld.includes(nr);
         const klassen  = `song${isActief ? ' speelt-nu' : ''}${isKlaar ? ' afgespeeld' : ''}`;
@@ -127,12 +96,7 @@ function bouwSetlist(nummers, huidig, afgespeeld) {
             <span class="song-icon">♫</span>
         `;
 
-        // Klikbaar als er een pagina bestaat, anders gewoon een div
-        if (url) {
-            return `<a class="${klassen}" href="${url}" style="animation-delay:${i * 0.05}s">${inhoud}</a>`;
-        } else {
-            return `<div class="${klassen}" style="animation-delay:${i * 0.05}s;cursor:default">${inhoud}</div>`;
-        }
+        return `<a class="${klassen}" href="${url}" style="animation-delay:${i * 0.05}s">${inhoud}</a>`;
     }).join('');
 
     // Scroll-animaties opnieuw koppelen
