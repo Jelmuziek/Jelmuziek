@@ -1,133 +1,107 @@
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="images/favicon_io/site.webmanifest">
-
-    <title>Jel muziek</title>
+    <title>Setlist – JEL Openstage 2026</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
 </head>
-
 <body>
     <div class="scrollbar"></div>
     <div class="music-background">
-        <span>♪</span>
-        <span>♫</span>
-        <span>♬</span>
-        <span>♪</span>
-        <span>♫</span>
-        <span>♬</span>
-        <span>♪</span>
-        <span>♫</span>
-        <span>♬</span>
-        <span>♪</span>
-        <span>♫</span>
-        <span>♬</span>
+        <span>♪</span><span>♫</span><span>♬</span><span>♪</span>
+        <span>♫</span><span>♬</span><span>♪</span><span>♫</span>
+        <span>♬</span><span>♪</span><span>♫</span><span>♬</span>
     </div>
-
 
     <nav class="navbar">
         <div class="brand">
-            <div class="nav-logo">
-                <img src="images/logo.png" alt="Logo">
-            </div>
+            <div class="nav-logo"><img src="images/logo.png" alt="Logo"></div>
             <div class="logo">Openstage 2026</div>
         </div>
-        
         <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
+            <span></span><span></span><span></span>
         </div>
-        
         <div class="navlinks" id="navlinks">
-        <a href="setlist.html">Setlist</a>
-        <a href="events.html">Volgende events</a>
-        <a href="foto's.html">Foto's</a>
-        <a href="over-ons.html">Over ons</a>
+            <a href="index.html">Home</a>
+            <a href="setlist.html">Setlist</a>
+            <a href="events.html">Events</a>
+            <a href="foto's.html">Foto's</a>
+            <a href="over-ons.html">Over ons</a>
         </div>
-
     </nav>
+
+    <!-- Nu speelt banner -->
+    <div class="nu-speelt-banner" id="nu-speelt-banner">
+        <div class="nu-speelt-inner">
+            <div class="nu-speelt-pulse"></div>
+            <span class="nu-speelt-label">Nu speelt</span>
+            <span class="nu-speelt-naam" id="nu-speelt-naam"></span>
+            <div class="nu-speelt-eq">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
 
     <header class="hero">
         <h1>Openstage</h1>
-        <p>
-            Welkom bij de tweede openstage van het Jan van Egmond Lyceum. 
-            Hieronder is de setlist te zien voor deze avond. 
-            Klik op de liedjes voor meer informatie
-        </p>
+        <p>Welkom bij de tweede openstage van het Jan van Egmond Lyceum. Klik op een nummer voor meer info.</p>
     </header>
 
+    <!-- Countdown -->
+    <div class="countdown-wrap">
+        <div class="countdown-label">🎸 Het concert begint over</div>
+        <div class="countdown-vakken">
+            <div class="countdown-vak">
+                <span class="countdown-getal" id="cd-dagen">--</span>
+                <span class="countdown-eenheid">Dagen</span>
+            </div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-vak">
+                <span class="countdown-getal" id="cd-uren">--</span>
+                <span class="countdown-eenheid">Uur</span>
+            </div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-vak">
+                <span class="countdown-getal" id="cd-minuten">--</span>
+                <span class="countdown-eenheid">Min</span>
+            </div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-vak">
+                <span class="countdown-getal" id="cd-seconden">--</span>
+                <span class="countdown-eenheid">Sec</span>
+            </div>
+        </div>
+        <div class="countdown-klaar" id="cd-klaar" style="display:none">🎉 Het is zover — veel plezier!</div>
+    </div>
 
     <section class="setlist">
-        <a class="song" href="songs/American idiot.html">
-            American idiot
-        </a>
-        <a class="song" href="songs/Creep.html">
-            Creep
-        </a>
-        <a class="song" href="songs/Sailor song.html">
-            Sailor song
-        </a>
-        <a class="song" href="songs/Lie to me.html">
-            Lie To Me
-        </a>
-        <a class="song" href="songs/Clair de lune.html">
-            Clair de lune
-        </a>
-        <a class="song" href="songs/From the start.html">
-            From the start
-        </a>
-        <a class="song" href="songs/Desperado.html">
-            Desperado
-        </a>
-        <a class="song" href="songs/iloveitiloveitiloveit.html">
-            iloveitiloveitiloveit
-        </a>
-        <a class="song" href="songs/505.html">
-            505
-        </a>
-        <a class="song" href="songs/Remedy.html">
-            Remedy
-        </a>
-        <a class="song" href="songs/Van Gogh.html">
-            Van Gogh
-        </a>
-        <a class="song" href="songs/One way or another.html">
-            One way or another
-        </a>
-        <a class="song" href="songs/Sweet Child O' Mine.html">
-            Sweet Child O' Mine
-        </a>
-        <a class="song" href="songs/Nothing else Matters.html">
-            Nothing else Matters
-        </a>
-        <a class="song" href="songs/Price of smokes of Cockroaches.html">
-            Price of smokes en Cockroaches (medley)
-        </a>
-        <a class="song" href="songs/Feuer Frei.html">
-            Feuer Frei
-        </a>
-        <a class="song" href="songs/Always.html">
-            Always
-        </a>
-        <a class="song" href="songs/Tequilla.html">
-            Tequilla
-        </a>
+        <a class="song" href="songs/American idiot.html"><span class="song-nummer">1</span>American Idiot<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Creep.html"><span class="song-nummer">2</span>Creep<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Sailor song.html"><span class="song-nummer">3</span>Sailor Song<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Lie to me.html"><span class="song-nummer">4</span>Lie To Me<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Clair de lune.html"><span class="song-nummer">5</span>Clair de Lune<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/From the start.html"><span class="song-nummer">6</span>From The Start<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Desperado.html"><span class="song-nummer">7</span>Desperado<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/iloveitiloveitiloveit.html"><span class="song-nummer">8</span>iloveitiloveitiloveit<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/505.html"><span class="song-nummer">9</span>505<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Remedy.html"><span class="song-nummer">10</span>Remedy<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Van Gogh.html"><span class="song-nummer">11</span>Van Gogh<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/One way or another.html"><span class="song-nummer">12</span>One Way Or Another<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Sweet Child O' Mine.html"><span class="song-nummer">13</span>Sweet Child O' Mine<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Nothing else Matters.html"><span class="song-nummer">14</span>Nothing Else Matters<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Price of smokes of Cockroaches.html"><span class="song-nummer">15</span>Price of Smokes &amp; Cockroaches (medley)<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Feuer Frei.html"><span class="song-nummer">16</span>Feuer Frei<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Always.html"><span class="song-nummer">17</span>Always<span class="song-icon">♫</span></a>
+        <a class="song" href="songs/Tequilla.html"><span class="song-nummer">18</span>Tequila<span class="song-icon">♫</span></a>
     </section>
 
-    <footer>
-        <p></p>
-    </footer>
-
-
+    <footer><p></p></footer>
     <script src="script.js"></script>
 </body>
 </html>

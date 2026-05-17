@@ -1,75 +1,56 @@
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="images/favicon_io/site.webmanifest">
-
-    <title>Jel muziek</title>
+    <title>Events – JEL Openstage 2026</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
 </head>
-
 <body>
     <div class="scrollbar"></div>
     <div class="music-background">
-        <span>♪</span>
-        <span>♫</span>
-        <span>♬</span>
-        <span>♪</span>
-        <span>♫</span>
-        <span>♬</span>
-        <span>♪</span>
-        <span>♫</span>
-        <span>♬</span>
-        <span>♪</span>
-        <span>♫</span>
-        <span>♬</span>
+        <span>♪</span><span>♫</span><span>♬</span><span>♪</span>
+        <span>♫</span><span>♬</span><span>♪</span><span>♫</span>
+        <span>♬</span><span>♪</span><span>♫</span><span>♬</span>
     </div>
-    
+
     <nav class="navbar">
         <div class="brand">
-            <div class="nav-logo">
-                <img src="images/logo.png" alt="Logo">
-            </div>
+            <div class="nav-logo"><img src="images/logo.png" alt="Logo"></div>
             <div class="logo">Openstage 2026</div>
         </div>
-        
         <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
+            <span></span><span></span><span></span>
         </div>
-        
         <div class="navlinks" id="navlinks">
-        <a href="setlist.html">Setlist</a>
-        <a href="events.html">Volgende events</a>
-        <a href="foto's.html">Foto's</a>
-        <a href="over-ons.html">Over ons</a>
+            <a href="index.html">Home</a>
+            <a href="setlist.html">Setlist</a>
+            <a href="events.html">Volgende events</a>
+            <a href="foto's.html">Foto's</a>
+            <a href="over-ons.html">Over ons</a>
         </div>
-        
     </nav>
-    
+
     <div class="pagina">
         <h1>Volgende events</h1>
         <div class="eventpagina">
-            <p>
-                Eindexamen concert 8 en 9 april! (8 april havo en 9 april vwo)
-            </p>
-            <p>
-                De school musical Moord op bakboord! 25 en 26 juni
-            </p>
+            <div class="event-card">
+                <span class="event-icon">🎓</span>
+                <p>Eindexamen concert – 8 april (HAVO) &amp; 9 april (VWO)</p>
+            </div>
+            <div class="event-card">
+                <span class="event-icon">🎭</span>
+                <p>Schoolmusical: Moord op Bakboord! – 25 &amp; 26 juni</p>
+            </div>
         </div>
     </div>
-    <footer>
-        <p></p>
-    </footer>
 
+    <footer><p></p></footer>
     <script src="script.js"></script>
 </body>
 </html>

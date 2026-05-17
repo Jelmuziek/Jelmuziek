@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beheer – Nu speelt</title>
+    <meta name="theme-color" content="#810162">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
+    <style>
+        .pin-overlay {
+            position: fixed; inset: 0; background: #f8f5ff;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            z-index: 9999; gap: 16px;
+        }
+        .pin-overlay h2 { font-family:'Montserrat',sans-serif; font-weight:900; font-size:1.4rem; color:var(--paars); margin:0; }
+        .pin-overlay p  { color:#888; font-size:0.85rem; margin:0; }
+        .pin-dots { display:flex; gap:12px; margin:8px 0; }
+        .pin-dot  { width:16px; height:16px; border-radius:50%; border:2px solid var(--paars); background:transparent; transition:background .15s; }
+        .pin-dot.gevuld { background:var(--paars); }
+        .pin-grid { display:grid; grid-template-columns:repeat(3,72px); gap:10px; }
+        .pin-btn  {
+            height:72px; border-radius:50%;
+            border:2px solid rgba(129,1,98,0.2); background:white;
+            font-family:'Montserrat',sans-serif; font-weight:700; font-size:1.4rem;
+            color:#333; cursor:pointer; transition:all .15s;
+            box-shadow:0 2px 8px rgba(0,0,0,0.06);
+        }
+        .pin-btn:hover  { background:var(--paars); color:white; transform:scale(1.08); }
+        .pin-btn:active { transform:scale(0.95); }
+        .pin-fout { color:#c00; font-size:0.82rem; animation:shake .3s ease; }
+
+        /* Mobiel vriendelijk */
+        * { -webkit-tap-highlight-color: transparent; }
+
+        .pin-btn {
+            /* Groter touch target op telefoon */
+            min-height: 64px;
+            touch-action: manipulation;
+        }
+
+        /* Terug knop altijd zichtbaar ook op smal scherm */
+        .navbar .navlinks {
+            display: flex !important;
+        }
+
+        @media (max-width: 768px) {
+            .pin-grid {
+                grid-template-columns: repeat(3, 68px);
+                gap: 8px;
+            }
+            .pin-btn { height: 68px; font-size: 1.3rem; }
+            .pin-dots { gap: 10px; }
+            .pin-dot  { width: 14px; height: 14px; }
+            .beheer-wrap { padding: 20px 16px; }
+            .beheer-song { padding: 12px 14px; font-size: 0.88rem; }
+            .btn-speelt, .btn-klaar { padding: 6px 10px; font-size: 11px; }
+        }
+        @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+
+        .verbinding-status {
+            font-size:0.78rem; padding:6px 14px; border-radius:20px;
+            display:inline-flex; align-items:center; gap:6px;
+            margin-bottom:16px; font-weight:600;
+        }
+        .verbinding-status.ok    { background:#e8f5e9; color:#2e7d32; }
+        .verbinding-status.err   { background:#fce4ec; color:#c62828; }
+        .verbinding-status.wacht { background:#f3e5f5; color:var(--paars); }
+    </style>
+</head>
+<body class="beheer-body">
+
+    <!-- Pincode -->
+    <div class="pin-overlay" id="pinOverlay">
+        <h2>🔒 Beheerpagina</h2>
+        <p>Voer de pincode in</p>
+        <div class="pin-dots" id="pinDots">
+            <div class="pin-dot" id="d0"></div>
+            <div class="pin-dot" id="d1"></div>
+            <div class="pin-dot" id="d2"></div>
+            <div class="pin-dot" id="d3"></div>
+            <div class="pin-dot" id="d4"></div>
+            <div class="pin-dot" id="d5"></div>
+        </div>
+        <div id="pinFout" class="pin-fout" style="display:none">Verkeerde pincode</div>
+        <div class="pin-grid">
+            <button class="pin-btn" onclick="pinInvoer('1')">1</button>
+            <button class="pin-btn" onclick="pinInvoer('2')">2</button>
+            <button class="pin-btn" onclick="pinInvoer('3')">3</button>
+            <button class="pin-btn" onclick="pinInvoer('4')">4</button>
+            <button class="pin-btn" onclick="pinInvoer('5')">5</button>
+            <button class="pin-btn" onclick="pinInvoer('6')">6</button>
+            <button class="pin-btn" onclick="pinInvoer('7')">7</button>
+            <button class="pin-btn" onclick="pinInvoer('8')">8</button>
+            <button class="pin-btn" onclick="pinInvoer('9')">9</button>
+            <button class="pin-btn" onclick="pinInvoer('wis')" style="font-size:1rem">⌫</button>
+            <button class="pin-btn" onclick="pinInvoer('0')">0</button>
+            <button class="pin-btn" onclick="pinInvoer('ok')" style="background:var(--paars);color:white;border-color:var(--paars)">OK</button>
+        </div>
+    </div>
+
+    <!-- Beheer inhoud -->
+    <div id="beheerInhoud" style="display:none">
+        <nav class="navbar">
+            <div class="brand">
+                <div class="nav-logo"><img src="images/logo.png" alt="Logo"></div>
+                <div class="logo">Beheer</div>
+            </div>
+            <div class="navlinks" id="navlinks" style="display:flex!important">
+                <a href="setlist.html">← Naar setlist</a>
+            </div>
+        </nav>
+
+        <div class="beheer-wrap">
+            <h1>Nu speelt 🎛️</h1>
+            <p class="sub">Klik op een nummer — iedereen ziet het meteen live.</p>
+
+            <div class="verbinding-status wacht" id="verbindingStatus">⏳ Verbinding controleren...</div>
+            <div class="beheer-status" id="beheerStatus">Laden...</div>
+            <div id="beheerLijst"></div>
+            <button class="btn-reset" onclick="resetAlles()">🔄 Reset alles (einde show)</button>
+        </div>
+    </div>
+
+    <script>
+        // ── Pincode ──
+        const JUISTE_PIN = '051009';
+        let pinBuffer = '';
+
+        function pinInvoer(k) {
+            if (k === 'wis') { pinBuffer = pinBuffer.slice(0,-1); }
+            else if (k === 'ok') { controleerPin(); return; }
+            else { if (pinBuffer.length >= 6) return; pinBuffer += k; }
+            updatePinDots();
+            if (pinBuffer.length === 6) controleerPin();
+        }
+
+        function updatePinDots() {
+            for (let i = 0; i < 6; i++)
+                document.getElementById('d'+i).classList.toggle('gevuld', i < pinBuffer.length);
+        }
+
+        function controleerPin() {
+            if (pinBuffer === JUISTE_PIN) {
+                document.getElementById('pinOverlay').style.display = 'none';
+                document.getElementById('beheerInhoud').style.display = 'block';
+                init();
+            } else {
+                document.getElementById('pinFout').style.display = 'block';
+                pinBuffer = '';
+                updatePinDots();
+                setTimeout(() => document.getElementById('pinFout').style.display = 'none', 1800);
+            }
+        }
+
+        // ── Firebase ──
+        const FB_URL = 'https://openstage-597a9-default-rtdb.europe-west1.firebasedatabase.app/show.json';
+
+        const SONGS = [
+            { nr:1,  naam:'American Idiot' },
+            { nr:2,  naam:'Creep' },
+            { nr:3,  naam:'Sailor Song' },
+            { nr:4,  naam:'Lie To Me' },
+            { nr:5,  naam:'Clair de Lune' },
+            { nr:6,  naam:'From The Start' },
+            { nr:7,  naam:'Desperado' },
+            { nr:8,  naam:'iloveitiloveitiloveit' },
+            { nr:9,  naam:'505' },
+            { nr:10, naam:'Remedy' },
+            { nr:11, naam:'Van Gogh' },
+            { nr:12, naam:'One Way Or Another' },
+            { nr:13, naam:"Sweet Child O' Mine" },
+            { nr:14, naam:'Nothing Else Matters' },
+            { nr:15, naam:'Price of Smokes & Cockroaches' },
+            { nr:16, naam:'Feuer Frei' },
+            { nr:17, naam:'Always' },
+            { nr:18, naam:'Tequila' },
+        ];
+
+        let huidigeState = { huidig: null, afgespeeld: [] };
+
+        async function haalOp() {
+            try {
+                const r = await fetch(FB_URL);
+                if (!r.ok) throw new Error();
+                const data = await r.json();
+                setStatus(true);
+                return data || { huidig: null, afgespeeld: [] };
+            } catch {
+                setStatus(false);
+                return null;
+            }
+        }
+
+        async function slaOp(state) {
+            try {
+                await fetch(FB_URL, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(state),
+                });
+                setStatus(true);
+            } catch { setStatus(false); }
+        }
+
+        function setStatus(ok) {
+            const el = document.getElementById('verbindingStatus');
+            el.className = 'verbinding-status ' + (ok ? 'ok' : 'err');
+            el.textContent = ok ? '🟢 Live verbonden — publiek ziet updates direct' : '🔴 Geen verbinding met Firebase';
+        }
+
+        async function init() {
+            const s = await haalOp();
+            if (s) { huidigeState = s; }
+            // Initialiseer Firebase als leeg
+            if (!huidigeState || typeof huidigeState !== 'object') {
+                huidigeState = { huidig: null, afgespeeld: [] };
+                await slaOp(huidigeState);
+            }
+            if (!Array.isArray(huidigeState.afgespeeld)) huidigeState.afgespeeld = [];
+            bouwLijst();
+            updateBeheerStatus();
+            // Poll elke 5 sec als fallback
+            setInterval(async () => {
+                const s = await haalOp();
+                if (s) { huidigeState = s; bouwLijst(); updateBeheerStatus(); }
+            }, 5000);
+        }
+
+        async function zetActief(nr) {
+            if (!Array.isArray(huidigeState.afgespeeld)) huidigeState.afgespeeld = [];
+            if (huidigeState.huidig && !huidigeState.afgespeeld.includes(huidigeState.huidig))
+                huidigeState.afgespeeld.push(huidigeState.huidig);
+            huidigeState.huidig = nr;
+            bouwLijst(); updateBeheerStatus();
+            await slaOp(huidigeState);
+        }
+
+        async function zetKlaar(nr) {
+            if (!Array.isArray(huidigeState.afgespeeld)) huidigeState.afgespeeld = [];
+            if (huidigeState.huidig === nr) huidigeState.huidig = null;
+            if (!huidigeState.afgespeeld.includes(nr)) huidigeState.afgespeeld.push(nr);
+            bouwLijst(); updateBeheerStatus();
+            await slaOp(huidigeState);
+        }
+
+        async function resetAlles() {
+            if (!confirm('Weet je zeker dat je alles wilt resetten?')) return;
+            huidigeState = { huidig: null, afgespeeld: [] };
+            bouwLijst(); updateBeheerStatus();
+            await slaOp(huidigeState);
+        }
+
+        function updateBeheerStatus() {
+            const el = document.getElementById('beheerStatus');
+            if (!el) return;
+            const s = huidigeState;
+            if (s.huidig) {
+                const song = SONGS.find(x => x.nr === s.huidig);
+                el.innerHTML = `Nu speelt: <strong>${song ? song.naam : ''}</strong> &nbsp;🎵&nbsp; ${s.afgespeeld.length} afgespeeld`;
+            } else {
+                el.innerHTML = `Geen nummer actief — ${s.afgespeeld.length} nummer(s) afgespeeld.`;
+            }
+        }
+
+        function bouwLijst() {
+            const lijst = document.getElementById('beheerLijst');
+            if (!lijst) return;
+            const s = huidigeState;
+            lijst.innerHTML = SONGS.map(song => {
+                const isActief = s.huidig === song.nr;
+                const isKlaar  = Array.isArray(s.afgespeeld) && s.afgespeeld.includes(song.nr);
+                return `<div class="beheer-song ${isActief?'actief':''} ${isKlaar?'afgespeeld-b':''}">
+                    <span class="beheer-nr">${song.nr}</span>
+                    <span>${song.naam}</span>
+                    <div class="beheer-actions">
+                        ${!isActief
+                            ? `<button class="btn-speelt" onclick="zetActief(${song.nr})">▶ Speelt nu</button>`
+                            : '<span style="font-size:11px;color:#e0007a;font-weight:700">● LIVE</span>'}
+                        ${!isKlaar
+                            ? `<button class="btn-klaar" onclick="zetKlaar(${song.nr})">✓ Klaar</button>`
+                            : ''}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
