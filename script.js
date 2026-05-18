@@ -212,5 +212,19 @@ function startCountdown(targetISO) {
     setInterval(tick, 1000);
 }
 
-const EVENEMENT_DATUM = '2026-12-12T19:00:00';
-if (document.getElementById('cd-dagen')) startCountdown(EVENEMENT_DATUM);
+// Datum wordt dynamisch geladen uit Firebase
+// Fallback als Firebase niet bereikbaar is
+const FALLBACK_DATUM = '2026-12-12T19:00:00';
+
+async function laadEnStartCountdown() {
+    if (!document.getElementById('cd-dagen')) return;
+    try {
+        const r = await fetch('https://openstage-597a9-default-rtdb.europe-west1.firebasedatabase.app/show.json');
+        const data = await r.json();
+        const datum = data?.evenementDatum || FALLBACK_DATUM;
+        startCountdown(datum);
+    } catch {
+        startCountdown(FALLBACK_DATUM);
+    }
+}
+laadEnStartCountdown();
